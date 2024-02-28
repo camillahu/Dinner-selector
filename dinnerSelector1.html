@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        .hideList {
+            display: none;
+        }
+        .showList {
+            display: block;
+        }
 
     </style>
 </head>
@@ -22,7 +28,9 @@
         function updateView() {
             app.innerHTML = /*HTML*/ `
             <button id="displayBtn" onclick="displayDinner()">Choose random dinner</button>
-            <ul id="displayText">${forLoop()}</ul>
+            <button onclick="displayAllDinners()">Display all dinners</button>
+
+            <ul id="dinnerList" class='hideList'>${forLoop()}</ul>
             <div> Tonights dinner is: ${selectedDinner}</div>
             `;
         }
@@ -36,7 +44,11 @@
             return html; 
             
         }
-
+        function displayAllDinners() {
+            const displayList = document.getElementById('dinnerList');
+            displayList.classList.toggle('hideList'); // fikk mye hjelp av chatGPT til dette, må øve på å klare dette selv.
+            displayList.classList.toggle('showList'); 
+        }
         function displayDinner(){
             let randomDinner = Math.floor(Math.random()* dinner.length);
             selectedDinner =dinner[randomDinner];
