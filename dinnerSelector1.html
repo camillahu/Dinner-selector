@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+
+        let dinner = ['bolognese', 'pizza', 'taco', 
+        'lasagne', 'mac & cheese', 'carbonara',
+        'burger', 'moussaka','nachos', 'treat yourself, get a takeaway!'];
+        let selectedDinner = '';
+
+        const app = document.getElementById('app');
+        updateView();
+        function updateView() {
+            app.innerHTML = /*HTML*/ `
+            <button id="displayBtn" onclick="displayDinner()">Choose random dinner</button>
+            <ul id="displayText">${forLoop()}</ul>
+            <div> Tonights dinner is: ${selectedDinner}</div>
+            `;
+        }
+
+        function forLoop() {
+            let html = '';
+            for(let i=0; i < dinner.length; i++) {
+                html += /*HTML*/ `<li> ${dinner[i]}</li>`
+                
+            }
+            return html; 
+            
+        }
+
+        function displayDinner(){
+            let randomDinner = Math.floor(Math.random()* dinner.length);
+            selectedDinner =dinner[randomDinner];
+            console.log(randomDinner);
+            updateView();
+        }
+
+
+    </script>
+</body>
+</html>
