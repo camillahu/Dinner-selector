@@ -35,10 +35,10 @@
             `;
         }
 
-        function forLoop() {
+        function forLoop() { // fikk mye hjelp av chatGPT til denne funksjonen, må øve på å klare dette selv.
             let html = '';
             for(let i=0; i < dinner.length; i++) {
-                html += /*HTML*/ `<li> ${dinner[i]}</li>`
+                html += /*HTML*/ `<li> ${dinner[i]}</li>` 
                 
             }
             return html; 
@@ -53,6 +53,7 @@
             let randomDinner = Math.floor(Math.random()* dinner.length);
             selectedDinner =dinner[randomDinner];
             console.log(randomDinner);
+            
             updateView();
         }
 
