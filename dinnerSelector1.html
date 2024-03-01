@@ -1,63 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            background-color: rgb(202, 166, 236);
+        }
+
         .hideList {
             display: none;
         }
+
         .showList {
             display: block;
+            border: 3px dotted rgb(250, 238, 134);
+            width: 200px;
+            color: rgb(44, 44, 44);
+        }
+        #inputId {
+            margin-top: 2px;
         }
 
+        .btnClass>button {
+            background-color: rgb(241, 133, 184);
+            margin-bottom: 10px;
+            margin-right: 2px;
+        }
+
+        .resultAndInputDiv {
+            display: grid;
+            grid-template-columns: 12em 12em;
+        }
+        .takeawaySelectorDiv {
+            margin-right: 2px;
+            margin-top: 10px;
+        }
+        .takeawaySelectorDiv > button {
+            background-color: rgb(241, 133, 184);
+            margin-bottom: 5px;
+            
+        }
     </style>
 </head>
+
 <body>
     <div id="app"></div>
     <script>
-
-        let dinner = ['bolognese', 'pizza', 'taco', 
-        'lasagne', 'mac & cheese', 'carbonara',
-        'burger', 'moussaka','nachos', 'treat yourself, get a takeaway!'];
-        let selectedDinner = '';
-
         const app = document.getElementById('app');
+
+        let dinner = ['bolognese', 'pizza', 'taco',
+            'lasagne', 'mac & cheese', 'carbonara',
+            'burger', 'moussaka', 'nachos', 'treat yourself, get a takeaway!'];
+        let selectedDinner = '';
+        let takeaway = ['Dominos', 'Ninas sushi', 'Kverneriet', 'Burger King',
+            'Revetal gamle stasjon', 'McDonalds', 'Steak', 'Piece of Greece', 'Try something new!',]
+        let selectedTakeaway = '';    
+
+
         updateView();
         function updateView() {
             app.innerHTML = /*HTML*/ `
-            <button id="displayBtn" onclick="displayDinner()">Choose random dinner</button>
-            <button onclick="displayAllDinners()">Display all dinners</button>
+            <div class="btnClass">
+            <button id="displayBtn" onclick="displayRandomDinner()">Random dinner</button>
+            <button onclick="displayAllDinners()">Display all options</button>
+            
+            </div>
 
+            
             <ul id="dinnerList" class='hideList'>${forLoop()}</ul>
-            <div> Tonights dinner is: ${selectedDinner}</div>
+            <div class="resultAndInputDiv">
+                <div> Add new option: <input id="inputId" onchange="addDinner(this.value)"/></div>
+            <div> Tonights dinner is:</br>${selectedDinner}</div>
+                </div>
+                <div class="takeawaySelectorDiv">${ifTakeaway()}</div>
             `;
         }
 
-        function forLoop() { // fikk mye hjelp av chatGPT til denne funksjonen, må øve på å klare dette selv.
+        function forLoop() {
             let html = '';
-            for(let i=0; i < dinner.length; i++) {
-                html += /*HTML*/ `<li> ${dinner[i]}</li>` 
-                
+            for (let i = 0; i < dinner.length; i++) {
+                html += /*HTML*/ `<li> ${dinner[i]}</li>`
+
             }
-            return html; 
-            
+            return html;
         }
+
         function displayAllDinners() {
             const displayList = document.getElementById('dinnerList');
-            displayList.classList.toggle('hideList'); // fikk mye hjelp av chatGPT til dette, må øve på å klare dette selv.
-            displayList.classList.toggle('showList'); 
+            // displayList.classList.toggle('hideList');
+            displayList.classList.toggle('showList');
         }
-        function displayDinner(){
-            let randomDinner = Math.floor(Math.random()* dinner.length);
-            selectedDinner =dinner[randomDinner];
-            console.log(randomDinner);
+
+        function ifTakeaway() {
+            let html = '';
+            console.log(selectedDinner)
+            console.log(dinner[9])
             
+            if (selectedDinner == dinner[9]) {
+                html = /*HTML*/ `
+                <button class="btnClass" onclick="displayRandomTakeaway()">Random resturant</button>
+                <div> Tonights resturant is: ${selectedTakeaway}</div>
+                `
+            } return html;
+        }
+
+
+        function displayRandomDinner() {
+            let randomDinner = Math.floor(Math.random() * dinner.length);
+            selectedDinner = dinner[randomDinner];
+        
             updateView();
         }
 
+        function addDinner(newDinner) {
+            dinner.push(newDinner)
+            updateView();
+        }
+        
+        function displayRandomTakeaway() {
+            let randomTakeaway = Math.floor(Math.random() * takeaway.length);
+            selectedTakeaway = takeaway[randomTakeaway];
+
+            updateView();
+        }
 
     </script>
 </body>
+
 </html>
